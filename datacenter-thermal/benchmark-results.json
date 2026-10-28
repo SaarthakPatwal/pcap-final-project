@@ -1,0 +1,208 @@
+{
+  "info": {
+    "block_size": [
+      16,
+      16
+    ],
+    "cuda_available": false,
+    "gpu": "GPU not available in this build (rebuild with the CUDA Toolkit)",
+    "openmp_threads": 8
+  },
+  "message": "Finished. Verified available backends; CUDA skipped if unavailable.",
+  "progress": 100,
+  "rows": [
+    {
+      "max_temperature_errors": {
+        "cpu": 0.0,
+        "openmp": 0.0
+      },
+      "runs": {
+        "cpu": {
+          "compute_ms": 0.176963,
+          "ms": 0.17726400052197278,
+          "stats": {
+            "average": 34.18600826989859,
+            "hotspots": 1041,
+            "maximum": 173.63294982910156,
+            "milliseconds": 0.176963,
+            "step": 100,
+            "throughput": 832094.6990356445
+          }
+        },
+        "openmp": {
+          "compute_ms": 0.32183200000000006,
+          "ms": 0.32231300021521747,
+          "stats": {
+            "average": 34.18600826989859,
+            "hotspots": 1041,
+            "maximum": 173.63294982910156,
+            "milliseconds": 0.32183200000000006,
+            "step": 100,
+            "throughput": 832094.6990356445
+          }
+        }
+      },
+      "size": 128,
+      "speedups": {
+        "cpu": 1.0,
+        "openmp": 0.5499747152724482
+      },
+      "verified": true
+    },
+    {
+      "max_temperature_errors": {
+        "cpu": 0.0,
+        "openmp": 0.0
+      },
+      "runs": {
+        "cpu": {
+          "compute_ms": 0.6824229999999997,
+          "ms": 0.6827430007979274,
+          "stats": {
+            "average": 34.20527753751958,
+            "hotspots": 4137,
+            "maximum": 174.060546875,
+            "milliseconds": 0.6824229999999997,
+            "step": 100,
+            "throughput": 3328802.796239853
+          }
+        },
+        "openmp": {
+          "compute_ms": 0.4480140000000001,
+          "ms": 0.4483199992682785,
+          "stats": {
+            "average": 34.20527753751958,
+            "hotspots": 4137,
+            "maximum": 174.060546875,
+            "milliseconds": 0.4480140000000001,
+            "step": 100,
+            "throughput": 3328802.796239853
+          }
+        }
+      },
+      "size": 256,
+      "speedups": {
+        "cpu": 1.0,
+        "openmp": 1.5228921348863764
+      },
+      "verified": true
+    },
+    {
+      "max_temperature_errors": {
+        "cpu": 0.0,
+        "openmp": 0.0
+      },
+      "runs": {
+        "cpu": {
+          "compute_ms": 2.4816770000000004,
+          "ms": 2.482052999548614,
+          "stats": {
+            "average": 34.18195284499234,
+            "hotspots": 16494,
+            "maximum": 174.1896209716797,
+            "milliseconds": 2.4816770000000004,
+            "step": 100,
+            "throughput": 13307617.884389877
+          }
+        },
+        "openmp": {
+          "compute_ms": 0.7639089999999998,
+          "ms": 0.7643100002314895,
+          "stats": {
+            "average": 34.18195284499234,
+            "hotspots": 16494,
+            "maximum": 174.1896209716797,
+            "milliseconds": 0.7639089999999998,
+            "step": 100,
+            "throughput": 13307617.884389877
+          }
+        }
+      },
+      "size": 512,
+      "speedups": {
+        "cpu": 1.0,
+        "openmp": 3.24744278996332
+      },
+      "verified": true
+    },
+    {
+      "max_temperature_errors": {
+        "cpu": 0.0,
+        "openmp": 0.0
+      },
+      "runs": {
+        "cpu": {
+          "compute_ms": 9.189339,
+          "ms": 9.189893000293523,
+          "stats": {
+            "average": 34.15991188830412,
+            "hotspots": 65813,
+            "maximum": 174.4658203125,
+            "milliseconds": 9.189339,
+            "step": 100,
+            "throughput": 53193345.73941994
+          }
+        },
+        "openmp": {
+          "compute_ms": 2.932508000000001,
+          "ms": 2.9330430005211383,
+          "stats": {
+            "average": 34.15991188830412,
+            "hotspots": 65813,
+            "maximum": 174.4658203125,
+            "milliseconds": 2.932508000000001,
+            "step": 100,
+            "throughput": 53193345.73941994
+          }
+        }
+      },
+      "size": 1024,
+      "speedups": {
+        "cpu": 1.0,
+        "openmp": 3.133228186105924
+      },
+      "verified": true
+    },
+    {
+      "max_temperature_errors": {
+        "cpu": 0.0,
+        "openmp": 0.0
+      },
+      "runs": {
+        "cpu": {
+          "compute_ms": 39.31680300000002,
+          "ms": 39.3171929998789,
+          "stats": {
+            "average": 34.168878361961106,
+            "hotspots": 262677,
+            "maximum": 174.81134033203125,
+            "milliseconds": 39.31680300000002,
+            "step": 100,
+            "throughput": 212882409.056345
+          }
+        },
+        "openmp": {
+          "compute_ms": 9.136184000000004,
+          "ms": 9.136689000297338,
+          "stats": {
+            "average": 34.168878361961106,
+            "hotspots": 262677,
+            "maximum": 174.81134033203125,
+            "milliseconds": 9.136184000000004,
+            "step": 100,
+            "throughput": 212882409.056345
+          }
+        }
+      },
+      "size": 2048,
+      "speedups": {
+        "cpu": 1.0,
+        "openmp": 4.303221112002323
+      },
+      "verified": true
+    }
+  ],
+  "status": "done",
+  "steps": 100,
+  "tiled": false
+}

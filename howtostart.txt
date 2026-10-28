@@ -1,0 +1,11 @@
+Run through VS Code
+1. Open Visual Studio Code.
+2. Select File → Open Folder and open:
+C:\Users\Saarthak\Desktop\datacenter_final\datacenter-thermal
+3. Select Terminal → New Terminal.
+4. Paste this command:
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run-cuda.ps1
+5. Wait until the terminal shows:
+Running on http://127.0.0.1:5000
+6. Open http://127.0.0.1:5000 in your browser.
+7. Select CUDA from the Compute Backend menu.

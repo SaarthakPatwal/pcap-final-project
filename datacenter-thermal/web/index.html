@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thermal Lab · Live simulation</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script defer src="/static/vendor/chart.umd.min.js"></script>
+  <script defer src="/static/app.js"></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/"><span class="brand-mark">▦</span> Thermal Lab <span class="tag">P-CAP</span></a>
+    <nav aria-label="Main navigation"><a href="/" aria-current="page">Live simulation</a><a href="/benchmark-page">Performance</a></nav>
+    <span class="top-note">PARALLEL COMPUTING / LAB 01</span>
+  </header>
+  <main>
+    <div class="page-heading"><div><p class="eyebrow">A DIGITAL TWIN OF THE DATA CENTER</p><h1>Small changes. Shared heat.</h1><p class="subtitle">Explore how workload and cooling affect an interconnected grid of server racks.</p></div><span id="run-status" class="status"><i></i> Paused</span></div>
+    <div id="message" class="notice" role="status" hidden></div>
+    <section class="toolbar panel" aria-label="Simulation controls">
+      <div class="button-group"><button id="start" class="primary">▶ Start</button><button id="pause" disabled>Ⅱ Pause</button><button id="step">Step +1</button><button id="reset" class="quiet">↻ Reset</button></div>
+      <label>Compute backend<select id="backend"><option value="cpu">Sequential CPU</option><option value="openmp">OpenMP</option><option value="cuda">CUDA</option></select></label>
+      <label>Grid size<select id="size"><option value="64">64 × 64</option><option value="128">128 × 128</option><option value="256">256 × 256</option><option value="512">512 × 512</option></select></label>
+      <label class="speed">Steps / frame <output id="speed-value">5</output><input id="speed" type="range" min="1" max="30" value="5"></label>
+    </section>
+    <p class="micro" id="hardware">Connecting to the native simulator…</p>
+    <section class="stats" aria-label="Live statistics">
+      <div><span>MAX TEMPERATURE</span><strong id="max-stat">—</strong><small>°C / hottest rack</small></div>
+      <div><span>AVG TEMPERATURE</span><strong id="avg-stat">—</strong><small>°C / entire grid</small></div>
+      <div><span>HOTSPOTS</span><strong id="hot-stat">—</strong><small id="hot-label">racks above 85 °C</small></div>
+      <div><span>TOTAL THROUGHPUT</span><strong id="through-stat">—</strong><small>effective workload units</small></div>
+      <div><span>SIMULATION STEP</span><strong id="step-stat">0</strong><small>discrete time steps</small></div>
+      <div><span>COMPUTE TIME</span><strong id="ms-stat">—</strong><small>ms / step · no rendering</small></div>
+    </section>
+    <div class="workspace">
+      <section class="panel map-panel">
+        <div class="panel-heading"><div><p class="eyebrow">LIVE THERMAL FIELD</p><h2>Rack temperature</h2></div><span id="rack-count" class="badge">4,096 racks</span></div>
+        <div class="map-layout"><div class="map-wrap"><canvas id="heatmap" width="1024" height="1024" aria-label="Interactive rack heatmap. Click or drag to select racks." tabindex="0"></canvas><div id="tooltip" class="tooltip" hidden></div><span class="map-axis">ROW ↓ &nbsp; COLUMN →</span></div>
+          <div class="legend"><span>110°</span><div class="gradient"></div><span>20°</span></div>
+        </div>
+        <div class="map-caption"><span><i class="key selected-key"></i> Selected racks</span><span><i class="key hot-key"></i> Hotspots</span><span>Click · Drag a region · Shift+click to toggle</span></div>
+        <div class="environment"><label>Ambient intake <output id="ambient-value">25 °C</output><input id="ambient" type="range" min="10" max="45" value="25"></label><label>Hotspot threshold <output id="threshold-value">85 °C</output><input id="threshold" type="range" min="30" max="120" value="85"></label></div>
+        <label class="check"><input id="tiled" type="checkbox"> CUDA shared-memory tiling <span class="micro">16 × 16 blocks + halo</span></label>
+      </section>
+      <aside class="side-stack">
+        <section class="panel controls">
+          <div class="panel-heading"><div><p class="eyebrow">MULTI-RACK CONTROL</p><h2>Your selection</h2></div><span id="selection-count" class="count-badge">0</span></div>
+          <div class="button-group"><button id="select-all" class="small">Select all</button><button id="clear-selection" class="small quiet">Clear selection</button></div>
+          <p class="micro">Changes apply to every selected rack.</p>
+          <label class="control-label" for="temperature">Temperature <span><input id="temperature-number" type="number" min="0" max="120" value="65" step="1" aria-label="Temperature in Celsius"> °C</span></label><input id="temperature" type="range" min="0" max="120" value="65">
+          <label class="control-label" for="workload">Workload <output id="workload-value">100%</output></label><input id="workload" type="range" min="0" max="100" value="100">
+          <label class="control-label" for="cooling">Cooling <output id="cooling-value">25%</output></label><input id="cooling" type="range" min="0" max="100" value="25">
+          <button id="apply" class="primary full" data-selection disabled>Apply all three values</button>
+          <div class="quick-actions"><button data-action="heat" data-selection disabled>Heat up +10 °C</button><button data-action="cool" data-selection disabled>Cool down −10 °C</button><button data-action="max" data-selection disabled>Max workload</button><button data-action="off" data-selection disabled>Shut down rack</button></div>
+          <p class="micro">Shutdown sets workload to 0 now. Workload continues to drift by −2…+2 each step.</p>
+        </section>
+        <section class="panel controls presets"><p class="eyebrow">CHANGE THE CONDITIONS</p><h2>Demo scenarios</h2><p class="micro">Region presets use your selection, or the central quarter if none is selected.</p>
+          <button data-preset="normal"><span class="scenario-dot normal"></span> Normal load <span>↗</span></button>
+          <button data-preset="hot-aisle"><span class="scenario-dot hot"></span> Hot aisle failure <span>↗</span></button>
+          <button data-preset="cooling-failure"><span class="scenario-dot warm"></span> Cooling failure <span>↗</span></button>
+          <button data-preset="cooling-boost"><span class="scenario-dot cold"></span> Cooling boost <span>↗</span></button>
+          <button data-preset="random-spikes"><span class="scenario-dot spike"></span> Random spikes <span>↗</span></button>
+        </section>
+      </aside>
+    </div>
+    <section class="panel history"><div class="panel-heading"><div><p class="eyebrow">OBSERVE THE RESPONSE</p><h2>Temperature & throughput</h2></div><span class="micro">Last 120 frames · throttling begins above 85 °C</span></div><div class="chart-wrap"><canvas id="history-chart" aria-label="Maximum temperature and throughput over time"></canvas></div></section>
+    <footer><span>THERMAL LAB / P-CAP UNIVERSITY PROJECT</span><span>Simplified model · deterministic workloads · three compute backends</span></footer>
+  </main>
+</body></html>
